@@ -1,6 +1,21 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FaHome, FaCube, FaColumns, FaMicrophone, FaShapes, FaCalculator, FaRuler, FaKey, FaMouse, FaList } from "react-icons/fa";
+import {
+  FaHome,
+  FaCube,
+  FaColumns,
+  FaMicrophone,
+  FaShapes,
+  FaCalculator,
+  FaRuler,
+  FaKey,
+  FaMouse,
+  FaList,
+  FaStar,
+  FaRandom,
+  FaShoppingCart,
+  FaUserPlus,
+} from "react-icons/fa";
 
 interface SidebarItem {
   label: string;
@@ -19,9 +34,13 @@ const mainItems: SidebarItem[] = [
 const exerciseItems: SidebarItem[] = [
   { label: "Tablas de Multiplicar", route: "/tablasmul", icon: <FaCalculator /> },
   { label: "Conversor de Unidades", route: "/conversorunid", icon: <FaRuler /> },
-  { label: "Validadador de Contraseñas", route: "/validcontrasena", icon: <FaKey /> },
+  { label: "Validadador de Contrasenas", route: "/validcontrasena", icon: <FaKey /> },
   { label: "Contador de Clics con Almacenamiento", route: "/contadorclics", icon: <FaMouse /> },
   { label: "Lista de Tareas", route: "/listareas", icon: <FaList /> },
+  { label: "Encuesta de Satisfaccion", route: "/survey", icon: <FaStar /> },
+  { label: "Generador Aleatorio", route: "/random-number", icon: <FaRandom /> },
+  { label: "Carrito de Compras", route: "/shopping-cart", icon: <FaShoppingCart /> },
+  { label: "Formulario de Registro", route: "/register-form", icon: <FaUserPlus /> },
 ];
 
 export default function Sidebar() {
@@ -33,8 +52,8 @@ export default function Sidebar() {
       key={route}
       to={route}
       className={({ isActive }) =>
-        `w-full text-left flex items-center gap-2 justify-between rounded-lg px-3 py-2 text-slate-700 dark:text-slate-300 
-         hover:bg-slate-50 dark:hover:bg-slate-800 
+        `w-full text-left flex items-center gap-2 justify-between rounded-lg px-3 py-2 text-slate-700 dark:text-slate-300 \
+         hover:bg-slate-50 dark:hover:bg-slate-800 \
          ${isActive ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300" : ""}`
       }
     >
@@ -45,29 +64,25 @@ export default function Sidebar() {
   return (
     <aside className="hidden md:block w-full md:w-[240px] border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
       <div className="p-3 space-y-1">
-
-        {/* Acordeón Main Items */}
         <button
           onClick={() => setOpenMain(!openMain)}
-          className="w-full text-left flex items-center justify-between rounded-lg px-3 py-2 text-slate-700 dark:text-slate-300 
+          className="w-full text-left flex items-center justify-between rounded-lg px-3 py-2 text-slate-700 dark:text-slate-300 \
                      hover:bg-slate-50 dark:hover:bg-slate-800 font-medium"
         >
-          Menú Principal
-          <span>{openMain ? "▲" : "▼"}</span>
+          Menu Principal
+          <span>{openMain ? "-" : "+"}</span>
         </button>
         {openMain && <div className="pl-4 space-y-1">{mainItems.map(renderNavItem)}</div>}
 
-        {/* Acordeón Exercises */}
         <button
           onClick={() => setOpenExercises(!openExercises)}
-          className="w-full text-left flex items-center justify-between rounded-lg px-3 py-2 text-slate-700 dark:text-slate-300 
+          className="w-full text-left flex items-center justify-between rounded-lg px-3 py-2 text-slate-700 dark:text-slate-300 \
                      hover:bg-slate-50 dark:hover:bg-slate-800 font-medium"
         >
           Ejercicios - Jtest
-          <span>{openExercises ? "▲" : "▼"}</span>
+          <span>{openExercises ? "-" : "+"}</span>
         </button>
         {openExercises && <div className="pl-4 space-y-1">{exerciseItems.map(renderNavItem)}</div>}
-
       </div>
     </aside>
   );
