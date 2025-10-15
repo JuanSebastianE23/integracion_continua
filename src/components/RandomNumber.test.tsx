@@ -15,7 +15,7 @@ describe("Componente RandomNumber", () => {
     const user = userEvent.setup();"Simula interacciones de usuario."
     render(<RandomNumber />); 
 
-    const button = screen.getByRole("button", { name: /generar numero/i });
+    const button = screen.getByRole("button", { name: /generar número/i });
     await user.click(button);
 
     expect(screen.getByRole("status")).toHaveTextContent(/Número generado:/i);
@@ -25,7 +25,7 @@ describe("Componente RandomNumber", () => {
     const user = userEvent.setup();
     render(<RandomNumber />);
 
-    await user.click(screen.getByRole("button", { name: /generar numero/i }));
+    await user.click(screen.getByRole("button", { name: /generar número/i }));
     const number = getGeneratedNumber();
 
     expect(number).toBeGreaterThanOrEqual(1);
@@ -36,7 +36,7 @@ describe("Componente RandomNumber", () => {
     const user = userEvent.setup();
     render(<RandomNumber />);
 
-    const button = screen.getByRole("button", { name: /generar numero/i });
+    const button = screen.getByRole("button", { name: /generar número/i });
 
     await user.click(button);
     const first = getGeneratedNumber();

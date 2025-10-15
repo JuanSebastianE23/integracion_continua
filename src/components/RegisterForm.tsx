@@ -14,7 +14,7 @@ export default function RegisterForm() {
       return;
     }
 
-    const message = `Registro exitoso para ${name}`;
+    const message = `Registro completado para ${name}`;
     setConfirmationMessage(message);
     setName("");
     setEmail("");

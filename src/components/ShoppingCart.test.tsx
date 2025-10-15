@@ -13,7 +13,7 @@ describe("Componente ShoppingCart", () => {
   it("debe iniciar mostrando el carrito vacío", () => {
     render(<ShoppingCart />);
 
-    expect(screen.getByRole("status")).toHaveTextContent(/carrito esta vacio/i);
+    expect(screen.getByRole("status")).toHaveTextContent(/carrito está vacío/i);
     expect(readTotal()).toBe(0);
   });
 
@@ -36,7 +36,7 @@ describe("Componente ShoppingCart", () => {
     await user.click(screen.getByRole("button", { name: /eliminar/i }));
 
     expect(readTotal()).toBeCloseTo(0, 2);
-    expect(screen.getByRole("status")).toHaveTextContent(/carrito esta vacio/i);
+    expect(screen.getByRole("status")).toHaveTextContent(/carrito está vacío/i);
   });
 
   it("calcula correctamente el total con varios artículos distintos", async () => {

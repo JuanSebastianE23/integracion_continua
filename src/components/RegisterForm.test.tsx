@@ -15,7 +15,7 @@ describe("Componente RegisterForm", () => {
     render(<RegisterForm />);
 
     const nameInput = screen.getByLabelText(/nombre/i);
-    const emailInput = screen.getByLabelText(/email/i);
+    const emailInput = screen.getByLabelText(/correo electrónico/i);
 
     await user.type(nameInput, "Carla");
     await user.type(emailInput, "carla@example.com");
@@ -28,7 +28,7 @@ describe("Componente RegisterForm", () => {
     render(<RegisterForm />);
 
     const nameInput = screen.getByLabelText(/nombre/i) as HTMLInputElement;
-    const emailInput = screen.getByLabelText(/email/i) as HTMLInputElement;
+    const emailInput = screen.getByLabelText(/correo electrónico/i) as HTMLInputElement;
     const submitBtn = screen.getByRole("button", { name: /registrar/i });
 
     await user.type(nameInput, "Pedro");
