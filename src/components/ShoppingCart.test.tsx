@@ -2,54 +2,54 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ShoppingCart from "./ShoppingCart";
 
-function getCartTotal(): number {
-  const raw = screen.getByTestId("cart-total").textContent ?? "";
-  const numeric = raw.replace(/[^0-9.,-]/g, "");
-  const normalized = numeric.replace(",", ".");
-  return Number(normalized);
+// Utilidad para obtener el valor numérico del total
+function readTotal(): number {
+  const rawText = screen.getByTestId("cart-total").textContent ?? "";
+  const numericOnly = rawText.replace(/[^0-9.,-]/g, "").replace(",", ".");
+  return Number(numericOnly);
 }
 
-describe("ShoppingCart", () => {
-  test("el carrito inicia vacio", () => {
+describe("Componente ShoppingCart", () => {
+  it("debe iniciar mostrando el carrito vacío", () => {
     render(<ShoppingCart />);
 
     expect(screen.getByRole("status")).toHaveTextContent(/carrito esta vacio/i);
-    expect(getCartTotal()).toBeCloseTo(0);
+    expect(readTotal()).toBe(0);
   });
 
-  test("al agregar un producto aumenta el total", async () => {
+  it("incrementa el total al añadir un artículo", async () => {
     const user = userEvent.setup();
     render(<ShoppingCart />);
 
-    const addButtons = screen.getAllByRole("button", { name: /agregar al carrito/i });
-    await user.click(addButtons[0]);
+    const botones = screen.getAllByRole("button", { name: /agregar al carrito/i });
+    await user.click(botones[0]);
 
-    expect(getCartTotal()).toBeCloseTo(8.5, 2);
+    expect(readTotal()).toBeCloseTo(8.5, 2);
   });
 
-  test("eliminar un producto actualiza el total", async () => {
+  it("permite eliminar un producto y deja el carrito vacío otra vez", async () => {
     const user = userEvent.setup();
     render(<ShoppingCart />);
 
-    const addButtons = screen.getAllByRole("button", { name: /agregar al carrito/i });
-    await user.click(addButtons[0]);
-
+    const botones = screen.getAllByRole("button", { name: /agregar al carrito/i });
+    await user.click(botones[0]);
     await user.click(screen.getByRole("button", { name: /eliminar/i }));
 
-    expect(getCartTotal()).toBeCloseTo(0, 2);
+    expect(readTotal()).toBeCloseTo(0, 2);
     expect(screen.getByRole("status")).toHaveTextContent(/carrito esta vacio/i);
   });
 
-  test("calcula el total correctamente con multiples articulos", async () => {
+  it("calcula correctamente el total con varios artículos distintos", async () => {
     const user = userEvent.setup();
     render(<ShoppingCart />);
 
-    const addButtons = screen.getAllByRole("button", { name: /agregar al carrito/i });
+    const botones = screen.getAllByRole("button", { name: /agregar al carrito/i });
 
-    await user.click(addButtons[0]);
-    await user.click(addButtons[0]);
-    await user.click(addButtons[1]);
+    // 2 unidades del primero + 1 del segundo
+    await user.click(botones[0]);
+    await user.click(botones[0]);
+    await user.click(botones[1]);
 
-    expect(getCartTotal()).toBeCloseTo(22.25, 2);
+    expect(readTotal()).toBeCloseTo(22.25, 2);
   });
 });

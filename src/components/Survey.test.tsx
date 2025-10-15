@@ -2,44 +2,36 @@
 import userEvent from "@testing-library/user-event";
 import Survey from "./Survey";
 
-// Suite que cubre el flujo principal del formulario de encuesta.
-describe("Survey", () => {
-  test("renderiza las cinco opciones de calificacion", () => {
-    // Renderiza el componente y comprueba que existan los cinco radios etiquetados.
+describe("Componente Survey", () => {
+  it("debería mostrar exactamente cinco opciones de calificación", () => {
     render(<Survey />);
 
-    const radios = screen.getAllByRole("radio");
-    expect(radios).toHaveLength(5);
-    expect(
-      screen.getByRole("radio", { name: /1 estrella/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("radio", { name: /5 estrellas/i })
-    ).toBeInTheDocument();
+    const opciones = screen.getAllByRole("radio");
+    expect(opciones).toHaveLength(5);
+
+    // Verificamos extremos (1 y 5 estrellas)
+    expect(screen.getByRole("radio", { name: /1 estrella/i })).toBeVisible();
+    expect(screen.getByRole("radio", { name: /5 estrellas/i })).toBeVisible();
   });
 
-  test("actualiza el estado cuando se selecciona una opcion", async () => {
-    // Simula la seleccion de "3 estrellas" y verifica que quede marcada.
+  it("marca la opción seleccionada al hacer clic", async () => {
     const user = userEvent.setup();
     render(<Survey />);
 
-    const radioTres = screen.getByRole("radio", { name: /3 estrellas/i });
+    const opcionTres = screen.getByRole("radio", { name: /3 estrellas/i });
+    await user.click(opcionTres);
 
-    await user.click(radioTres);
-
-    expect(radioTres).toBeChecked();
+    expect(opcionTres).toBeChecked();
   });
 
-  test("muestra mensaje de confirmacion con la puntuacion al enviar", async () => {
-    // Completa el formulario seleccionando "4 estrellas" y espera el mensaje final.
+  it("muestra un mensaje de agradecimiento con la puntuación elegida al enviar", async () => {
     const user = userEvent.setup();
     render(<Survey />);
 
     await user.click(screen.getByRole("radio", { name: /4 estrellas/i }));
-    await user.click(screen.getByRole("button", { name: /Enviar/i }));
+    await user.click(screen.getByRole("button", { name: /enviar/i }));
 
-    expect(screen.getByRole("status")).toHaveTextContent(
-      "Gracias por tu puntuacion: 4"
-    );
+    const mensaje = screen.getByRole("status");
+    expect(mensaje).toHaveTextContent(/gracias por tu puntuacion: 4/i);
   });
 });

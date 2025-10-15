@@ -28,16 +28,16 @@ const mainItems: SidebarItem[] = [
   { label: "Three.js Demo", route: "/three", icon: <FaCube /> },
   { label: "Responsive Layouts", route: "/layouts", icon: <FaColumns /> },
   { label: "Text-to-Speech", route: "/tts", icon: <FaMicrophone /> },
-  { label: "Figuras Geometricas", route: "/three_2", icon: <FaShapes /> },
+  { label: "Figuras Geométricas", route: "/three_2", icon: <FaShapes /> },
 ];
 
 const exerciseItems: SidebarItem[] = [
   { label: "Tablas de Multiplicar", route: "/tablasmul", icon: <FaCalculator /> },
   { label: "Conversor de Unidades", route: "/conversorunid", icon: <FaRuler /> },
-  { label: "Validadador de Contrasenas", route: "/validcontrasena", icon: <FaKey /> },
-  { label: "Contador de Clics con Almacenamiento", route: "/contadorclics", icon: <FaMouse /> },
+  { label: "Validador de Contraseñas", route: "/validcontrasena", icon: <FaKey /> },
+  { label: "Contador de Clics", route: "/contadorclics", icon: <FaMouse /> },
   { label: "Lista de Tareas", route: "/listareas", icon: <FaList /> },
-  { label: "Encuesta de Satisfaccion", route: "/survey", icon: <FaStar /> },
+  { label: "Encuesta de Satisfacción", route: "/survey", icon: <FaStar /> },
   { label: "Generador Aleatorio", route: "/random-number", icon: <FaRandom /> },
   { label: "Carrito de Compras", route: "/shopping-cart", icon: <FaShoppingCart /> },
   { label: "Formulario de Registro", route: "/register-form", icon: <FaUserPlus /> },
@@ -52,37 +52,46 @@ export default function Sidebar() {
       key={route}
       to={route}
       className={({ isActive }) =>
-        `w-full text-left flex items-center gap-2 justify-between rounded-lg px-3 py-2 text-slate-700 dark:text-slate-300 \
-         hover:bg-slate-50 dark:hover:bg-slate-800 \
-         ${isActive ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300" : ""}`
+        `w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-colors duration-200 
+         ${
+           isActive
+             ? "bg-gradient-to-r from-emerald-500 to-teal-400 text-white font-semibold shadow-md"
+             : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+         }`
       }
     >
-      <div className="flex items-center gap-2">{icon} {label}</div>
+      <span className="text-lg">{icon}</span>
+      <span>{label}</span>
     </NavLink>
   );
 
   return (
-    <aside className="hidden md:block w-full md:w-[240px] border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-      <div className="p-3 space-y-1">
+    <aside className="hidden md:block w-full md:w-[250px] h-screen border-r border-slate-200 dark:border-slate-800 
+                      bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <div className="p-4 space-y-3">
         <button
           onClick={() => setOpenMain(!openMain)}
-          className="w-full text-left flex items-center justify-between rounded-lg px-3 py-2 text-slate-700 dark:text-slate-300 \
-                     hover:bg-slate-50 dark:hover:bg-slate-800 font-medium"
+          className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-slate-700 dark:text-slate-200 
+                     bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors font-bold"
         >
-          Menu Principal
-          <span>{openMain ? "-" : "+"}</span>
+          Menú Principal
+          <span>{openMain ? "−" : "+"}</span>
         </button>
-        {openMain && <div className="pl-4 space-y-1">{mainItems.map(renderNavItem)}</div>}
+        {openMain && (
+          <div className="pl-4 space-y-2">{mainItems.map(renderNavItem)}</div>
+        )}
 
         <button
           onClick={() => setOpenExercises(!openExercises)}
-          className="w-full text-left flex items-center justify-between rounded-lg px-3 py-2 text-slate-700 dark:text-slate-300 \
-                     hover:bg-slate-50 dark:hover:bg-slate-800 font-medium"
+          className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-slate-700 dark:text-slate-200 
+                     bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors font-bold"
         >
           Ejercicios - Jtest
-          <span>{openExercises ? "-" : "+"}</span>
+          <span>{openExercises ? "−" : "+"}</span>
         </button>
-        {openExercises && <div className="pl-4 space-y-1">{exerciseItems.map(renderNavItem)}</div>}
+        {openExercises && (
+          <div className="pl-4 space-y-2">{exerciseItems.map(renderNavItem)}</div>
+        )}
       </div>
     </aside>
   );

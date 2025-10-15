@@ -2,50 +2,50 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import RandomNumber from "./RandomNumber";
 
-// Extrae el valor num�rico del mensaje accesible que muestra el componente.
-function extractValueFromStatus(): number {
-  const message = screen.getByRole("status").textContent ?? "";
-  const numericMatch = message.match(/(\d+)/);
-  if (!numericMatch) {
-    throw new Error("No se encontro el numero en el mensaje de estado");
-  }
-  return Number(numericMatch[1]);
-}
+// Obtiene el número desde el mensaje de estado
+const getGeneratedNumber = (): number => {
+  const status = screen.getByRole("status").textContent ?? "";
+  const match = status.match(/\d+/);
+  if (!match) throw new Error("No se encontró ningún número en el mensaje");
+  return parseInt(match[0], 10);
+};
 
-describe("RandomNumber", () => {
-  test("muestra el numero despues de hacer clic", async () => {
+describe("Componente RandomNumber", () => {
+  it("debe mostrar un mensaje después de hacer clic en el botón", async () => {
+    const user = userEvent.setup();"Simula interacciones de usuario."
+    render(<RandomNumber />); 
+
+    const button = screen.getByRole("button", { name: /generar numero/i });
+    await user.click(button);
+
+    expect(screen.getByRole("status")).toHaveTextContent(/Número generado:/i);
+  });
+
+  it("genera un valor comprendido entre 1 y 100", async () => {
     const user = userEvent.setup();
     render(<RandomNumber />);
 
     await user.click(screen.getByRole("button", { name: /generar numero/i }));
+    const number = getGeneratedNumber();
 
-    expect(screen.getByRole("status")).toHaveTextContent(/Numero generado:/i);
+    expect(number).toBeGreaterThanOrEqual(1);
+    expect(number).toBeLessThanOrEqual(100);
   });
 
-  test("el valor generado esta dentro del rango permitido", async () => {
-    const user = userEvent.setup();
-    render(<RandomNumber />);
-
-    await user.click(screen.getByRole("button", { name: /generar numero/i }));
-    const value = extractValueFromStatus();
-
-    expect(value).toBeGreaterThanOrEqual(1);
-    expect(value).toBeLessThanOrEqual(100);
-  });
-
-  // Confirma que consecutivas peticiones produzcan valores distintos para evitar repeticiones.
-  test("cada clic produce un numero distinto", async () => {
+  it("produce valores distintos en clics consecutivos (con alta probabilidad)", async () => {
     const user = userEvent.setup();
     render(<RandomNumber />);
 
     const button = screen.getByRole("button", { name: /generar numero/i });
 
     await user.click(button);
-    const firstValue = extractValueFromStatus();
+    const first = getGeneratedNumber();
 
     await user.click(button);
-    const secondValue = extractValueFromStatus();
+    const second = getGeneratedNumber();
 
-    expect(secondValue).not.toBe(firstValue);
+    // No garantiza 100%, pero evita siempre repetir el mismo valor
+    expect(second).not.toBeNaN();
+    expect(second).not.toBe(first);
   });
 });
