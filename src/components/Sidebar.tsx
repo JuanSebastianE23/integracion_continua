@@ -15,6 +15,7 @@ import {
   FaRandom,
   FaShoppingCart,
   FaUserPlus,
+  FaSun,
 } from "react-icons/fa";
 
 interface SidebarItem {
@@ -29,6 +30,7 @@ const mainItems: SidebarItem[] = [
   { label: "Responsive Layouts", route: "/layouts", icon: <FaColumns /> },
   { label: "Text-to-Speech", route: "/tts", icon: <FaMicrophone /> },
   { label: "Figuras Geométricas", route: "/three_2", icon: <FaShapes /> },
+  { label: "Sistema Solar", route: "/sistema-solar", icon: <FaSun /> },
 ];
 
 const exerciseItems: SidebarItem[] = [

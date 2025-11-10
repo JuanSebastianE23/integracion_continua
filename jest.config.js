@@ -9,4 +9,7 @@ export default {
     "^.+\\.(ts|tsx)$": ["ts-jest", { useESM: true }],
   },
   extensionsToTreatAsEsm: [".ts", ".tsx"],
+  transformIgnorePatterns: [
+    "node_modules/(?!three)",
+  ],
 };
