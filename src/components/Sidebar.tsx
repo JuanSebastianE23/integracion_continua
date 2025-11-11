@@ -31,6 +31,7 @@ const mainItems: SidebarItem[] = [
   { label: "Text-to-Speech", route: "/tts", icon: <FaMicrophone /> },
   { label: "Figuras Geométricas", route: "/three_2", icon: <FaShapes /> },
   { label: "Sistema Solar", route: "/sistema-solar", icon: <FaSun /> },
+  { label: "Fracciones Visualizador", route: "/fractions", icon: <FaShapes /> },
 ];
 
 const exerciseItems: SidebarItem[] = [
