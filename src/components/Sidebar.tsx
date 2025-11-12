@@ -16,6 +16,8 @@ import {
   FaShoppingCart,
   FaUserPlus,
   FaSun,
+  FaMap,
+  FaAdjust,
 } from "react-icons/fa";
 
 interface SidebarItem {
@@ -31,7 +33,8 @@ const mainItems: SidebarItem[] = [
   { label: "Text-to-Speech", route: "/tts", icon: <FaMicrophone /> },
   { label: "Figuras Geométricas", route: "/three_2", icon: <FaShapes /> },
   { label: "Sistema Solar", route: "/sistema-solar", icon: <FaSun /> },
-  { label: "Fracciones Visualizador", route: "/fractions", icon: <FaShapes /> },
+  { label: "Fracciones Visualizador", route: "/fractions", icon: <FaAdjust /> },
+  { label: "Mapa Mundial 3D", route: "/world-map-3d", icon: <FaMap /> },
 ];
 
 const exerciseItems: SidebarItem[] = [

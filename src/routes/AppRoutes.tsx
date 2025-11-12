@@ -19,6 +19,7 @@ import ShoppingCartView from "../views/ShoppingCartView";
 import RegisterFormView from "../views/RegisterFormView";
 import SistemaSolar from "../views/SistemaSolar";
 import FractionsView from "../views/FractionsView";
+import WorldMap3DView from "../views/WorldMap3DView";
 
 export default function AppRoutes() {
   return (
@@ -41,6 +42,7 @@ export default function AppRoutes() {
         <Route path="register-form" element={<RegisterFormView />} />
         <Route path="sistema-solar" element={<SistemaSolar />} />
         <Route path="fractions" element={<FractionsView />} />
+        <Route path="world-map-3d" element={<WorldMap3DView />} />
       </Route>
     </Routes>
   );
