@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React, { useEffect, useRef, useState } from "react";
 import * as maptilersdk from "@maptiler/sdk";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
@@ -17,13 +15,11 @@ maptilersdk.config.apiKey = import.meta.env.VITE_MAPTILER_KEY as string;
 interface WorldMap3DProps {
   mode?: "select" | "drag" | "compare";
   category?: "clima" | "población" | "economía" | null;
-  comparisonList?: string[];
 }
 
 const WorldMap3D: React.FC<WorldMap3DProps> = ({
   mode = "select",
   category = null,
-  comparisonList = [],
 }) => {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<maptilersdk.Map | null>(null);
@@ -149,7 +145,6 @@ const WorldMap3D: React.FC<WorldMap3DProps> = ({
       center: [0, 20],
       zoom: 1.5,
       pitch: 45,
-      antialias: true,
     });
 
     map.current.on("load", () => {
